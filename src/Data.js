@@ -868,7 +868,7 @@ const elementByType = function (type, value, syntax) {
       elem = new DataElement(type, nk.vr, nk.vm, value, false, syntax);
     }
   } else {
-    throw 'Unrecognized element type';
+    throw `Unrecognized element type ${type.toString(16)}`;
   }
 
   return elem;

@@ -319,12 +319,13 @@ DIMSE.storeInstances = function(fileList, callback) {
 };
 
 DIMSE.moveInstances = async function(
+  destination,
   studyInstanceUID,
   seriesInstanceUID,
   sopInstanceUID,
   sopClassUID,
-  destination,
-  params
+  params,
+  options
 ) {
   if (!studyInstanceUID) {
     console.error("Missing study instance uid");
@@ -350,9 +351,64 @@ DIMSE.moveInstances = async function(
   const defaultParams = {
     0x0020000d: studyInstanceUID,
     0x0020000e: seriesInstanceUID ? seriesInstanceUID : "",
-    0x00080018: sopInstanceUID ? sopInstanceUID : ""
+    0x00080018: (seriesInstanceUID && sopInstanceUID) ? sopInstanceUID : ""
   };
 
-  socket.moveInstances(destination, Object.assign(defaultParams, params));
+  let level = C.QUERY_RETRIEVE_LEVEL_STUDY;
+  if (seriesInstanceUID) {
+    level = C.QUERY_RETRIEVE_LEVEL_SERIES;
+  }
+  if (seriesInstanceUID && sopInstanceUID) {
+    level = C.QUERY_RETRIEVE_LEVEL_IMAGE;
+  }
+
+  socket.moveInstances(destination, Object.assign(defaultParams, params), level);
 };
+
+DIMSE.getInstances = async function(
+  studyInstanceUID,
+  seriesInstanceUID,
+  sopInstanceUID,
+  sopClassUID,
+  params,
+  options
+) {
+  if (!studyInstanceUID) {
+    console.error("Missing study instance uid");
+    return [];
+  }
+
+  let socket;
+  try {
+    socket = await DIMSE.associate(
+      [C.SOP_STUDY_ROOT_GET, sopClassUID],
+      options
+    );
+  } catch (error) {
+    console.error(error);
+  }
+
+  if (!socket) {
+    console.error("Assoc failed");
+    console.trace();
+    return [];
+  }
+
+  const defaultParams = {
+    0x0020000d: studyInstanceUID,
+    0x0020000e: seriesInstanceUID ? seriesInstanceUID : "",
+    0x00080018: (seriesInstanceUID && sopInstanceUID) ? sopInstanceUID : ""
+  };
+
+  let level = C.QUERY_RETRIEVE_LEVEL_STUDY;
+  if (seriesInstanceUID) {
+    level = C.QUERY_RETRIEVE_LEVEL_SERIES;
+  }
+  if (seriesInstanceUID && sopInstanceUID) {
+    level = C.QUERY_RETRIEVE_LEVEL_IMAGE;
+  }
+
+  socket.getInstances(Object.assign(defaultParams, params), level);
+};
+
 export default DIMSE;

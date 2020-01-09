@@ -24,6 +24,7 @@ import {
   CCancelRQ,
   CFindRQ,
   CMoveRQ,
+  CGetRQ,
   CStoreRQ } from './Message.js';
 
 function time () {
@@ -640,6 +641,12 @@ CSocket.prototype.move = function (destination, params, options) {
   return this.sendMessage(options.context, moveMessage, this.wrapMessage(params));
 };
 
+CSocket.prototype.get = function (params, options) {
+  const getMessage = new CGetRQ();
+  console.log('sending get request');
+  return this.sendMessage(options.context, getMessage, this.wrapMessage(params));
+};
+
 CSocket.prototype.storeInstance = function (sopClassUID, sopInstanceUID, options) {
   const storeMessage = new CStoreRQ();
 
@@ -649,9 +656,9 @@ CSocket.prototype.storeInstance = function (sopClassUID, sopInstanceUID, options
   return this.sendMessage(sopClassUID, storeMessage, true);
 };
 
-CSocket.prototype.moveInstances = function (destination, params, options) {
+CSocket.prototype.moveInstances = function (destination, params, level, options) {
   const sendParams = Object.assign({
-    0x00080052: C.QUERY_RETRIEVE_LEVEL_IMAGE
+    0x00080052: level
   }, params);
 
   options = Object.assign({
@@ -659,6 +666,18 @@ CSocket.prototype.moveInstances = function (destination, params, options) {
   }, options);
 
   return this.move(destination, sendParams, options);
+};
+
+CSocket.prototype.getInstances = function (params, level, options) {
+  const sendParams = Object.assign({
+    0x00080052: level
+  }, params);
+
+  options = Object.assign({
+    context: C.SOP_STUDY_ROOT_GET
+  }, options);
+
+  return this.get(sendParams, options);
 };
 
 CSocket.prototype.findPatients = function (params, options) {

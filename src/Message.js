@@ -402,7 +402,7 @@ DicomMessage.read = function (stream, type, syntax, options) {
     message = new DataSetMessage(useSyntax);
     message.setElementPairs(pairs);
   } else {
-    throw 'Unrecognized message type';
+    throw `Unrecognized message type ${type.toString(16)}`;
   }
 
   return message;
