@@ -19,7 +19,7 @@ export default {
    * @param value - value to check
    * @throws DetailedError if given type has not been implemented
    */
-  isOfDataType (type:DATA_TYPE, value:number):boolean {
+  isOfNumberType (type:DATA_TYPE, value:number):boolean {
     switch (type) {
     case DATA_TYPE.UINT8 :
       return value >= constants.MIN_DATA_VALUE.UINT8 &&
@@ -39,10 +39,18 @@ export default {
     case DATA_TYPE.INT32 :
       return value >= constants.MIN_DATA_VALUE.INT32 &&
         value <= constants.MAX_DATA_VALUE.INT32;
-    case DATA_TYPE.FLOAT :
-      return false; // TODO
-    case DATA_TYPE.DOUBLE :
-      return false; // TODO
+    case DATA_TYPE.FLOAT : {
+      const valueToCheck = Math.abs(value);
+
+      return valueToCheck === 0 || valueToCheck >= constants.PRECISION_DATA_VALUE.FLOAT.MIN &&
+        valueToCheck <= constants.PRECISION_DATA_VALUE.FLOAT.MAX;
+    }
+    case DATA_TYPE.DOUBLE : {
+      const valueToCheck = Math.abs(value);
+
+      return valueToCheck === 0 || valueToCheck >= constants.PRECISION_DATA_VALUE.DOUBLE.MIN &&
+        valueToCheck <= constants.PRECISION_DATA_VALUE.DOUBLE.MAX;
+    }
     default :
       throw new DetailedError('Not implemented', { type });
     }
@@ -108,8 +116,8 @@ export default {
    * @throws Error if a hex or ascii type are not given
    */
   getEncoding (type: DATA_TYPE): string {
-    if (![DATA_TYPE.HEX, DATA_TYPE.ASCII].includes(type)) {
-      throw new Error('');
+    if (!this.isString(type)) {
+      throw new DetailedError('Non-string types do not have an encoding', { type });
     }
     if (type === DATA_TYPE.HEX) {
       return 'hex';

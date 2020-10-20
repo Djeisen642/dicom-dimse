@@ -120,5 +120,15 @@ export default {
     INT8: -(Math.pow(2, 8) / 2),
     INT16: -(Math.pow(2, 16) / 2),
     INT32: -(Math.pow(2, 32) / 2)
+  },
+  PRECISION_DATA_VALUE: {
+    FLOAT: {
+      MAX: 3.402823466E+38,
+      MIN: 1.175494351E-38
+    },
+    DOUBLE: {
+      MAX: Number.MAX_VALUE,
+      MIN: Number.MIN_VALUE
+    }
   }
 };

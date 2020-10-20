@@ -4,6 +4,10 @@ import DetailedError from '../DetailedError';
 import helpers from '../helpers';
 
 export default class WriteStream extends RWStream {
+
+  /**
+   * Buffer that stores data written to stream
+   */
   rawBuffer = Buffer.alloc(constants.DEFAULT_BUFFER_SIZE);
 
   /**
@@ -43,6 +47,10 @@ export default class WriteStream extends RWStream {
    * @param value - data to write
    */
   writeToBuffer (type:DATA_TYPE, value:number):void {
+    if (!helpers.isOfNumberType(type, value)) {
+      throw new DetailedError('Value does not correspond to data type', { type,
+        value });
+    }
     const length = helpers.calcLength(type, value);
 
     this.checkSize(length);
@@ -51,6 +59,14 @@ export default class WriteStream extends RWStream {
 
     this.increment(length);
   }
+
+  /**
+   * Content size getter
+   */
+  size ():number {
+    return this.contentSize;
+  }
+
 
   /**
    * Check if current rawBuffer has enough space to write data

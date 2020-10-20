@@ -17,8 +17,233 @@ describe('isString', () => {
   });
 });
 
-describe('isOfDataType', () => {
-  // TODO
+describe('isOfNumericType', () => {
+  it('should check that a number is of type uint8, max', () => {
+    const value = constants.MAX_DATA_VALUE.UINT8;
+    const type = DATA_TYPE.UINT8;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is of type uint8, min', () => {
+    const value = constants.MIN_DATA_VALUE.UINT8;
+    const type = DATA_TYPE.UINT8;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is not of type uint8, over max', () => {
+    const value = constants.MAX_DATA_VALUE.UINT8 + 1;
+    const type = DATA_TYPE.UINT8;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is not of type uint8, under min', () => {
+    const value = constants.MIN_DATA_VALUE.UINT8 - 1;
+    const type = DATA_TYPE.UINT8;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is of type uint16, max', () => {
+    const value = constants.MAX_DATA_VALUE.UINT16;
+    const type = DATA_TYPE.UINT16;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is of type uint16, min', () => {
+    const value = constants.MIN_DATA_VALUE.UINT16;
+    const type = DATA_TYPE.UINT16;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is not of type uint16, over max', () => {
+    const value = constants.MAX_DATA_VALUE.UINT16 + 1;
+    const type = DATA_TYPE.UINT16;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is not of type uint16, under min', () => {
+    const value = constants.MIN_DATA_VALUE.UINT16 - 1;
+    const type = DATA_TYPE.UINT16;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is of type uint32, max', () => {
+    const value = constants.MAX_DATA_VALUE.UINT32;
+    const type = DATA_TYPE.UINT32;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is of type uint32, min', () => {
+    const value = constants.MIN_DATA_VALUE.UINT32;
+    const type = DATA_TYPE.UINT32;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is not of type uint32, over max', () => {
+    const value = constants.MAX_DATA_VALUE.UINT32 + 1;
+    const type = DATA_TYPE.UINT32;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is not of type uint32, under min', () => {
+    const value = constants.MIN_DATA_VALUE.UINT32 - 1;
+    const type = DATA_TYPE.UINT32;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+
+  it('should check that a number is of type int8, max', () => {
+    const value = constants.MAX_DATA_VALUE.INT8;
+    const type = DATA_TYPE.INT8;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is of type int8, min', () => {
+    const value = constants.MIN_DATA_VALUE.INT8;
+    const type = DATA_TYPE.INT8;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is not of type int8, over max', () => {
+    const value = constants.MAX_DATA_VALUE.INT8 + 1;
+    const type = DATA_TYPE.INT8;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is not of type int8, under min', () => {
+    const value = constants.MIN_DATA_VALUE.INT8 - 1;
+    const type = DATA_TYPE.INT8;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is of type int16, max', () => {
+    const value = constants.MAX_DATA_VALUE.INT16;
+    const type = DATA_TYPE.INT16;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is of type int16, min', () => {
+    const value = constants.MIN_DATA_VALUE.INT16;
+    const type = DATA_TYPE.INT16;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is not of type int16, over max', () => {
+    const value = constants.MAX_DATA_VALUE.INT16 + 1;
+    const type = DATA_TYPE.INT16;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is not of type int16, under min', () => {
+    const value = constants.MIN_DATA_VALUE.INT16 - 1;
+    const type = DATA_TYPE.INT16;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is of type int32, max', () => {
+    const value = constants.MAX_DATA_VALUE.INT32;
+    const type = DATA_TYPE.INT32;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is of type int32, min', () => {
+    const value = constants.MIN_DATA_VALUE.INT32;
+    const type = DATA_TYPE.INT32;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is not of type int32, over max', () => {
+    const value = constants.MAX_DATA_VALUE.INT32 + 1;
+    const type = DATA_TYPE.INT32;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is not of type int32, under min', () => {
+    const value = constants.MIN_DATA_VALUE.INT32 - 1;
+    const type = DATA_TYPE.INT32;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+
+  it('should check that a number is of type float, max', () => {
+    const value = constants.PRECISION_DATA_VALUE.FLOAT.MAX;
+    const type = DATA_TYPE.FLOAT;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is of type float, min', () => {
+    const value = constants.PRECISION_DATA_VALUE.FLOAT.MIN;
+    const type = DATA_TYPE.FLOAT;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is not of type float, over max', () => {
+    const value = constants.PRECISION_DATA_VALUE.FLOAT.MAX * 10; // minimum precision registered by float
+    const type = DATA_TYPE.FLOAT;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is not of type float, under min', () => {
+    const value = constants.PRECISION_DATA_VALUE.FLOAT.MIN / 10; // minimum precision registered by float
+    const type = DATA_TYPE.FLOAT;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(false);
+  });
+  it('should check that a number is of type double, max', () => {
+    const value = constants.PRECISION_DATA_VALUE.DOUBLE.MAX;
+    const type = DATA_TYPE.DOUBLE;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is of type double, min', () => {
+    const value = constants.PRECISION_DATA_VALUE.DOUBLE.MIN;
+    const type = DATA_TYPE.DOUBLE;
+    const isOfType = helpers.isOfNumberType(type, value);
+
+    expect(isOfType).toBe(true);
+  });
+  it('should check that a number is not of type double, over max', () => {
+    const value = constants.PRECISION_DATA_VALUE.DOUBLE.MAX * 10; // minimum precision registered by double
+    const type = DATA_TYPE.DOUBLE;
+    const isOfType = helpers.isOfNumberType(type, value); // value is now infinity because javascript can't handle the boundary
+
+    expect(isOfType).toBe(false);
+  });
+  it.skip('should check that a number is not of type double, under min', () => {
+    const value = constants.PRECISION_DATA_VALUE.DOUBLE.MIN / 10; // minimum precision registered by double
+    const type = DATA_TYPE.DOUBLE;
+    const isOfType = helpers.isOfNumberType(type, value); // value is now 0 because javascript can't handle the boundary
+
+    expect(isOfType).toBe(false);
+  });
 });
 
 describe('calcLength', () => {
@@ -154,8 +379,4 @@ describe('getEncoding', () => {
       helpers.getEncoding(type);
     }).toThrowError();
   });
-});
-
-describe('getEncoding', () => {
-  // TODO
 });
